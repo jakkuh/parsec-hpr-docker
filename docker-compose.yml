@@ -1,0 +1,25 @@
+services:
+  parsec-relay:
+    restart: unless-stopped
+    image: ghcr.io/jakkuh/parsec-hpr-docker:latest
+    ports:
+      - "${PUBLIC_IP:-0.0.0.0}:${PUBLIC_PORT}:${PUBLIC_PORT}"
+      - "${PRIVATE_IP:-0.0.0.0}:${PRIVATE_PORT}:${PRIVATE_PORT}"
+    environment:
+      - WAN_IP=${WAN_IP}
+      - PUBLIC_PORT=${PUBLIC_PORT}
+      - PRIVATE_PORT=${PRIVATE_PORT}
+      - TEAM_ID=${TEAM_ID}
+      - SECRET=${SECRET}
+      - HPR_DOWNLOAD_URL=${HPR_DOWNLOAD_URL}
+      - HPR_VERSION=${HPR_VERSION:-2.0.0}
+      - VERIFY_SIGNATURE=${VERIFY_SIGNATURE:-true}
+      #- PUID=
+      #- PGID=
+    ##### OPTIONAL: Specify a volume to cache the downloaded HPR binary. Otherwise, it will be downloaded on every start.
+    volumes:
+      - hpr-data:/data
+
+volumes:
+  hpr-data:
+    name: hpr-data
