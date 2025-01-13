@@ -3,8 +3,8 @@ services:
     restart: unless-stopped
     image: ghcr.io/jakkuh/parsec-hpr-docker:latest
     ports:
-      - "${PUBLIC_IP:-0.0.0.0}:${PUBLIC_PORT}:${PUBLIC_PORT}"
-      - "${PRIVATE_IP:-0.0.0.0}:${PRIVATE_PORT}:${PRIVATE_PORT}"
+      - "${PUBLIC_IP:-0.0.0.0}:${PUBLIC_PORT}:${PUBLIC_PORT}/udp"
+      - "${PRIVATE_IP:-0.0.0.0}:${PRIVATE_PORT}:${PRIVATE_PORT}/udp"
     environment:
       - WAN_IP=${WAN_IP}
       - PUBLIC_PORT=${PUBLIC_PORT}
